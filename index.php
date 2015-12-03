@@ -28,6 +28,8 @@
         require_once("menu.php");
         require_once($pagina);
         require_once("rodape.php");
+
+
     ?>
 </div>
 </body>
