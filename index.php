@@ -8,14 +8,21 @@
 <body>
 <div class="container">
     <?php
-        if(isset($_GET["page"])){
-            $pagina = $_GET["page"];
-            if(!file_exists($pagina)){
-                $pagina = "error404.php";
-            }
+
+    $rota = $_SERVER['REQUEST_URI'];
+    $rota = explode("/", $rota);
+
+        if($rota[1] == ""){
+            $pagina = "home.php";
         }
         else{
-            $pagina = "home.php";
+
+            if(file_exists($rota[1].".php")){
+                $pagina = $rota[1].".php";
+            }
+            else{
+                $pagina = "error404.php";
+            }
         }
 
         require_once("menu.php");
