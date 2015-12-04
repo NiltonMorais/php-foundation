@@ -35,7 +35,14 @@ CREATE TABLE IF NOT EXISTS `conteudo` (
  `conteudo`.`conteudo` LONGTEXT NOT NULL,
  PRIMARY KEY (`id`)
 );
+CREATE TABLE IF NOT EXISTS `usuarios` (
+ `usuarios`.`id` SMALLINT NOT NULL AUTO_INCREMENT,
+ `usuarios`.`usuario` LONGTEXT NOT NULL,
+ `usuarios`.`senha` LONGTEXT NOT NULL,
+ PRIMARY KEY (`id`)
+);
 delete from conteudo;
+delete from usuarios;
 ";
 
 $stmt = $conexao->prepare($sql);
@@ -48,10 +55,13 @@ foreach($paginas as $pagina){
     $stmt->execute(array( ':pagina' => $pagina['pagina'], ':conteudo' => $pagina['conteudo'] ));
 }
 
+$sql = "INSERT INTO usuarios (usuario, senha) VALUES (:usuario, :senha)";
+$stmt = $conexao->prepare($sql);
+$stmt->execute(array(":usuario" => "admin", ":senha" => password_hash("admin", PASSWORD_DEFAULT)));
 
 ?>
 
-<h2>Banco de dados 'examplepdo' e tabela 'conteudo' criados com sucesso!</h2>
-<h4>Dados inseridos com sucesso!</h4>
+<h2>Banco de dados 'examplepdo' e tabelaS 'conteudo' e 'usuarios' criadas com sucesso!</h2>
+<h4>Dados inseridos com sucesso! (usuario: admin, senha: admin)</h4>
 </body>
 </html>

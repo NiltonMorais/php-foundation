@@ -21,7 +21,11 @@
                 $pagina = $rota[1].".php";
             }
             else{
-                $pagina = "error404.php";
+                if($rota = explode("?", $rota[1])){
+                    $pagina = $rota[0].".php";
+                }else {
+                    $pagina = "error404.php";
+                }
             }
         }
 
